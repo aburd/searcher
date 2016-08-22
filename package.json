@@ -1,0 +1,26 @@
+{
+  "name": "searchbox-example",
+  "version": "1.0.0",
+  "description": "a small search box example with react and express/mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aburd/searcher.git"
+  },
+  "keywords": [
+    "search",
+    "mongodb",
+    "express",
+    "react",
+    "webpack"
+  ],
+  "author": "Aaron Burdick",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aburd/searcher/issues"
+  },
+  "homepage": "https://github.com/aburd/searcher#readme"
+}
