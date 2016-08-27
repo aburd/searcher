@@ -1,0 +1,22 @@
+html, body { 
+	margin: 0; 
+	padding: 0; 
+	color: #333333;
+	font-family: ‘Lucida Console’, Monaco, monospace;
+}
+ul.grades {
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 10px;
+    list-style: none;
+    width: 150px;
+}
+ul#result-items li {
+	border-bottom: 1px solid #333;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+}
+ul#result-items li strong {
+    text-decoration: underline;
+    font-size: 23px;
+}

@@ -5,7 +5,8 @@ import $ from 'jquery'
 var App = React.createClass({
 	getInitialState: function() {
 		return {
-			results: []
+			results: [],
+			query: ""
 		}
 	},
 	handleSubmitButton: function(query) {
@@ -15,7 +16,11 @@ var App = React.createClass({
 			dataType: 'json',
 			data: query,
 			success: function(data) {
-				this.setState( { results: data } )
+				const query = JSON.parse(data)
+				this.setState({ 
+					results: query.result, 
+					query: query.text 
+				})
 			}.bind(this),
 			error: function(err) { console.log(err) 
 			}.bind(this)
@@ -25,7 +30,7 @@ var App = React.createClass({
 		return (
 			<div>
 				<SearchBox submitFunction={this.handleSubmitButton} />
-				<ResultPane results={this.state.results} />
+				<ResultPane results={this.state.results} query={this.state.query} />
 			</div>
 		)
 	}
@@ -49,7 +54,6 @@ var SearchBox = React.createClass({
 			<div id="search-box">
 				<form action="./search" className="search-form">
 					<input type="text" placeholder="Search me..." onChange={this.handleTextbox} className="search-input"/>
-					<p>{this.state.text}</p>
 					<input type="submit" onClick={this.handleSubmit} />
 				</form>
 			</div>
@@ -62,6 +66,7 @@ var ResultPane = React.createClass({
 		return (
 			<div id="result-pane">
 				<h2>Results</h2>
+				<p>Results for "{this.props.query}"</p>
 				<ResultItem results={this.props.results} />			
 			</div>
 		)
@@ -90,7 +95,6 @@ var Grades = React.createClass({
 	makeGrades: function(grade, i) {
 		return (
 			<li key={i}>
-				{i}. <br/>
 				Grade: {grade.grade} <br/>
 				Score: {grade.score}
 			</li>
@@ -98,9 +102,12 @@ var Grades = React.createClass({
 	},
 	render: function() {
 		return (
-			<ul className="grades">
-				{this.props.grades.map(this.makeGrades)}
-			</ul>
+			<div>
+				Grades:
+				<ul className="grades">
+					{this.props.grades.map(this.makeGrades)}
+				</ul>
+			</div>
 		)
 
 	}

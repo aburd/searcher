@@ -65,7 +65,8 @@
 
 		getInitialState: function getInitialState() {
 			return {
-				results: []
+				results: [],
+				query: ""
 			};
 		},
 		handleSubmitButton: function handleSubmitButton(query) {
@@ -75,7 +76,11 @@
 				dataType: 'json',
 				data: query,
 				success: function (data) {
-					this.setState({ results: data });
+					var query = JSON.parse(data);
+					this.setState({
+						results: query.result,
+						query: query.text
+					});
 				}.bind(this),
 				error: function (err) {
 					console.log(err);
@@ -87,7 +92,7 @@
 				'div',
 				null,
 				_react2.default.createElement(SearchBox, { submitFunction: this.handleSubmitButton }),
-				_react2.default.createElement(ResultPane, { results: this.state.results })
+				_react2.default.createElement(ResultPane, { results: this.state.results, query: "Results for " + '"' + this.state.query + '"' })
 			);
 		}
 	});
@@ -115,11 +120,6 @@
 					'form',
 					{ action: './search', className: 'search-form' },
 					_react2.default.createElement('input', { type: 'text', placeholder: 'Search me...', onChange: this.handleTextbox, className: 'search-input' }),
-					_react2.default.createElement(
-						'p',
-						null,
-						this.state.text
-					),
 					_react2.default.createElement('input', { type: 'submit', onClick: this.handleSubmit })
 				)
 			);
@@ -137,6 +137,11 @@
 					'h2',
 					null,
 					'Results'
+				),
+				_react2.default.createElement(
+					'p',
+					null,
+					this.props.query
 				),
 				_react2.default.createElement(ResultItem, { results: this.props.results })
 			);
@@ -176,9 +181,6 @@
 			return _react2.default.createElement(
 				'li',
 				{ key: i },
-				i,
-				'. ',
-				_react2.default.createElement('br', null),
 				'Grade: ',
 				grade.grade,
 				' ',
@@ -189,9 +191,14 @@
 		},
 		render: function render() {
 			return _react2.default.createElement(
-				'ul',
-				{ className: 'grades' },
-				this.props.grades.map(this.makeGrades)
+				'div',
+				null,
+				'Grades:',
+				_react2.default.createElement(
+					'ul',
+					{ className: 'grades' },
+					this.props.grades.map(this.makeGrades)
+				)
 			);
 		}
 	});

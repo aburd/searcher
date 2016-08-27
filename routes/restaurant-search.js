@@ -11,19 +11,35 @@ const MongoClient = mongodb.MongoClient
 const ObjectId = mongodb.ObjectID
 const url = 'mongodb://localhost:27017/test';
 
+//escaping mechanism
+RegExp.escape = function(s) {
+  return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+};
+
 router.get('/', (req, res) => {
 	res.send(req.method)
 })
 
 router.post('/', (req, res) => {
-	let searchTerm = req.query.borough
+
+	// create a query object to hold searchtext and result
+	let query = {
+		text: req.query.borough,
+		result: []
+	}
+	let searchReg = new RegExp( RegExp.escape(query.text), "gi") //return an escaped version of the search term
+
 	MongoClient.connect(url, (err, db) => {
 		assert.equal(err, null)
-
-		db.collection('restaurants').find({borough: searchTerm}).limit(10)
+		// get my collection
+		let restaurants = db.collection('restaurants')
+		// find results
+		restaurants.find( { borough: { $regex: searchReg } }).limit(10)
 			.toArray((err, result) => {
 				assert.equal(err, null)
-				res.json(result)
+				
+				query.result = result
+				res.json( JSON.stringify(query) )
 			})
 	})
 })
