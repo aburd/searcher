@@ -4,7 +4,10 @@
   "description": "a small search box example with react and express/mongodb",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack-dev": "webpack-dev-server --progress --colors --watch",
+    "start": "node server.js",
+    "startdev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +25,28 @@
   "bugs": {
     "url": "https://github.com/aburd/searcher/issues"
   },
-  "homepage": "https://github.com/aburd/searcher#readme"
+  "homepage": "https://github.com/aburd/searcher#readme",
+  "devDependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.23.1",
+    "style-loader": "^0.13.1"
+  },
+  "dependencies": {
+    "babel-plugin-transform-class-properties": "^6.11.5",
+    "babel-plugin-transform-runtime": "^6.12.0",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.11.6",
+    "chalk": "^1.1.3",
+    "express": "^4.14.0",
+    "jquery": "^3.1.0",
+    "mongodb": "^2.2.8",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1"
+  }
 }
